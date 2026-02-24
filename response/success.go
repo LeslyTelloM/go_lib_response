@@ -2,7 +2,9 @@ package response
 
 import (
 	"net/http"
-)"github.com/LeslyTelloM/go_meta/meta"
+"github.com/LeslyTelloM/go_meta/meta"
+"encoding/json")
+
 
 
 type SuccessResponse struct {
@@ -15,11 +17,11 @@ type SuccessResponse struct {
 
 
 func buildResponse(message string,data interface{}, status int, meta *meta.Meta) Response {
-	return &Response{
+	return &SuccessResponse{
 		Status:  status,
 		Data:    data,
 		Message: message,
-		Meta: meta
+		Meta: meta,
 	}
 }	
 
