@@ -2,30 +2,30 @@ package response
 
 import (
 	"net/http"
-)"github.com/LeslyTelloM/go_meta/meta"
+)
 
 
 type ErrorResponse struct {
 	Status int         `json:"status"`
-	Error      string      `json:"error,omitempty"`
+	ErrorMessage      string      `json:"error,omitempty"`
 
 }
 
 
-func buildResponse(message string, status int) Response {
-	return &Response{
+func buildResponseError(message string, status int) Response {
+	return &ErrorResponse{
 		Status:  status,
-		Error:    message,
+		ErrorMessage:    message,
 	}
 }	
 
 
 func BadRequest(message string) Response {
-	return buildResponse(message, http.StatusBadRequest)
+	return buildResponseError(message, http.StatusBadRequest)
 }
 
 func InternalServerError(message string) Response {
-	return buildResponse(message, http.StatusInternalServerError)
+	return buildResponseError(message, http.StatusInternalServerError)
 }
 
 
@@ -35,13 +35,13 @@ func (e *ErrorResponse) StatusCode() int {
 
 
 func (e *ErrorResponse) GetBody() ([]byte, error) {
-	return json.Marshal(e.Error)
+	return []byte(e.ErrorMessage), nil
 }
 
 func (e *ErrorResponse) Error() string {
-	return e.Error
+	return e.ErrorMessage
 }
 
 func (e *ErrorResponse) GetData() interface{} {
-	return e.Error
+	return interface{}(nil)
 }
