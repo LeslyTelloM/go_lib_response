@@ -28,6 +28,11 @@ func InternalServerError(message string) Response {
 	return buildResponseError(message, http.StatusInternalServerError)
 }
 
+func NotFound(message string) Response {
+	return buildResponseError(message, http.StatusNotFound)
+}
+
+
 
 func (e *ErrorResponse) StatusCode() int {
 	return e.Status
